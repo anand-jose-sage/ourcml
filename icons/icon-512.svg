@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Cherupushpa Mission League app icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2b1240"/>
+      <stop offset="100%" stop-color="#0a0817"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f1d576"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="172" fill="none" stroke="url(#gold)" stroke-width="18"/>
+  <text x="256" y="298" text-anchor="middle" font-family="'Poppins', system-ui, sans-serif" font-weight="700" font-size="138" fill="url(#gold)">CML</text>
+</svg>

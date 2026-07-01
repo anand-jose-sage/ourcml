@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Redirecting… — Cherupushpa Mission League</title>
+  <!--
+    SPA fallback for static hosts that don't support server-side rewrites
+    (e.g. GitHub Pages). When a QR code / deep link like /badge is opened
+    directly, the host serves this 404 page; we stash the intended path
+    and bounce to index.html, where script.js (recoverRedirectedPath)
+    restores it via history.replaceState before routing.
+
+    NOTE: If you host on Apache/Nginx/Netlify/Vercel, use the included
+    .htaccess / _redirects rules instead — they route directly to
+    index.html without this extra hop and this file becomes a harmless
+    unused fallback.
+  -->
+  <script>
+    sessionStorage.setItem('cml-redirect-path', location.pathname + location.search);
+    location.replace('/');
+  </script>
+</head>
+<body>
+  <p>Redirecting to Cherupushpa Mission League&hellip;</p>
+</body>
+</html>

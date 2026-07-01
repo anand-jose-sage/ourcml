@@ -1,0 +1,2 @@
+# Netlify SPA routing — serves index.html for all deep links (/badge, /emblem, ...)
+/*  /index.html  200

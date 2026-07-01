@@ -1,0 +1,34 @@
+# Cherupushpa Mission League — Apache SPA routing
+# Serves index.html for deep links like /badge so QR codes and direct
+# navigation open the correct player without a client-side redirect hop.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Let real files/folders (assets, robots.txt, sitemap.xml, icons, etc.) pass through.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else falls back to index.html; script.js handles routing.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Long-term caching for static assets; HTML always revalidates.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|svg)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

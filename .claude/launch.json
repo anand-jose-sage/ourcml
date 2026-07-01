@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cml-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "-s", ".", "-l", "5050"],
+      "port": 5050
+    }
+  ]
+}
