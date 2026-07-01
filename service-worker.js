@@ -5,7 +5,7 @@
    so native Range-request seeking/streaming keeps working.
    ========================================================================= */
 
-const CACHE_VERSION = 'cml-v1';
+const CACHE_VERSION = 'cml-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 
 const APP_SHELL = [
@@ -15,11 +15,11 @@ const APP_SHELL = [
   '/script.js',
   '/manifest.json',
   '/offline.html',
-  '/icons/favicon.svg',
-  '/icons/icon-192.svg',
-  '/icons/icon-512.svg',
-  '/icons/icon-maskable.svg',
-  '/icons/apple-touch-icon.svg',
+  '/icons/favicon.png',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-maskable.png',
+  '/icons/apple-touch-icon.png',
 ];
 
 self.addEventListener('install', (event) => {

@@ -18,8 +18,10 @@
     unused fallback.
   -->
   <script>
-    sessionStorage.setItem('cml-redirect-path', location.pathname + location.search);
-    location.replace('/');
+    // Store path both in sessionStorage AND as query param for reliability
+    var p = location.pathname + location.search;
+    sessionStorage.setItem('cml-redirect-path', p);
+    location.replace('/?route=' + encodeURIComponent(p));
   </script>
 </head>
 <body>

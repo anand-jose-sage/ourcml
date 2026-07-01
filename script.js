@@ -101,7 +101,6 @@
   const homeView = $('#homeView');
   const playerView = $('#playerView');
   const playerBack = $('#playerBack');
-  const playerMoreBtn = $('#playerMoreBtn');
   const playerCover = $('#playerCover');
   const playerTitleEn = $('#playerTitleEn');
   const playerTitleMl = $('#playerTitleMl');
@@ -150,6 +149,7 @@
   let rateIndex = 0;
   let isSeeking = false;
   let pendingHeroRect = null;
+  let hasPainted = false;
 
   /* ---------------------------------------------------------------------
      ROUTER
@@ -163,7 +163,6 @@
 
   function handleLocation() {
     const path = normalizePath(location.pathname);
-
     if (path === '/') {
       closePlayer({ immediate: true });
       updateSEO(null);
@@ -228,9 +227,18 @@
   /* Recover the intended path after the GitHub-Pages-style 404 redirect
      trick (see 404.html) which stashes it in sessionStorage. */
   function recoverRedirectedPath() {
-    const stashed = sessionStorage.getItem('cml-redirect-path');
+    // Try sessionStorage first (set by 404.html)
+    let stashed = sessionStorage.getItem('cml-redirect-path');
     if (stashed) {
       sessionStorage.removeItem('cml-redirect-path');
+    }
+    // Fallback: check ?route= query param (more reliable across redirects)
+    if (!stashed) {
+      const params = new URLSearchParams(location.search);
+      const route = params.get('route');
+      if (route) stashed = route;
+    }
+    if (stashed && stashed !== '/') {
       history.replaceState({}, '', stashed);
     }
   }
@@ -484,13 +492,9 @@
       if (navMenuPopover.hidden) openNavMenu(menuBtn);
       else closeNavMenu();
     });
-    playerMoreBtn.addEventListener('click', () => {
-      if (navMenuPopover.hidden) openNavMenu(playerMoreBtn);
-      else closeNavMenu();
-    });
     document.addEventListener('click', (e) => {
       if (navMenuPopover.hidden) return;
-      if (e.target.closest('#navMenuPopover') || e.target.closest('#menuBtn') || e.target.closest('#playerMoreBtn')) return;
+      if (e.target.closest('#navMenuPopover') || e.target.closest('#menuBtn')) return;
       closeNavMenu();
     });
   }
@@ -709,9 +713,21 @@
 
     setActiveByItemId(item.id);
 
-    playerView.classList.add('is-open');
-    playerView.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    if (!hasPainted) {
+      // First paint hasn't happened yet (direct URL like /flag).
+      // Skip CSS transition — show player instantly.
+      playerView.style.transition = 'none';
+      playerView.classList.add('is-open');
+      playerView.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => { playerView.style.transition = ''; });
+      });
+    } else {
+      playerView.classList.add('is-open');
+      playerView.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
 
     initVisualizer();
     playHeroTransitionIn();
@@ -1098,6 +1114,7 @@
     initPrevNext();
     syncSoundIcons();
     handleLocation();
+    requestAnimationFrame(() => { hasPainted = true; });
     registerServiceWorker();
     loadAnalytics();
   }
