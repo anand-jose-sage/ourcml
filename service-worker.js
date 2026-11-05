@@ -5,7 +5,7 @@
    so native Range-request seeking/streaming keeps working.
    ========================================================================= */
 
-const CACHE_VERSION = 'cml-v9';
+const CACHE_VERSION = 'cml-v10';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 
 const APP_SHELL = [

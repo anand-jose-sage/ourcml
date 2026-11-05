@@ -607,7 +607,7 @@
       ? item.description
       : 'Official audio portal of Cherupushpa Mission League (CML). Listen to the CML Badge, Emblem, Flag, Daily Prayer and Anthem in English and Malayalam.';
     const url = item ? `${base}${item.path}` : `${base}/`;
-    const image = item ? item.coverImage : `${base}/icons/icon-512.svg`;
+    const image = item ? item.coverImage : `${base}/icons/icon-512.png`;
     const keywords = item
       ? `Cherupushpa Mission League, CML, ${item.englishTitle}, ${item.malayalamTitle}, CML ${item.englishTitle}`
       : 'Cherupushpa Mission League, CML, ചെറുപുഷ്പ മിഷൻ ലീഗ്, CML Badge, CML Emblem, CML Flag, CML Anthem, CML Prayer';
